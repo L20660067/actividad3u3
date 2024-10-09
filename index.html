@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar Tabla en Tiempo Real</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            z-index: 1;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #fa0404;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente para mejorar la visibilidad */
+            color: #fff;
+        }
+
+        table, th, td {
+            border: 1px solid #ffffff;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px;
+        }
+
+        th {
+            background-color: #007BFF;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(21, 220, 235, 0.7);
+        }
+
+        /* Estilos para el video de fondo */
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop class="video-background">
+        <source src="Fondo tecnológico en 4K.mp4" type="video/mp4">
+    </video>
+
+    <h1>Filtrar Tabla en Tiempo Real</h1>
+    <input type="text" id="searchInput" placeholder="Buscar en la tabla...">
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>País</th>
+                <th>Ocupación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Juan Pérez</td>
+                <td>28</td>
+                <td>México</td>
+                <td>Ingeniero</td>
+            </tr>
+            <tr>
+                <td>María García</td>
+                <td>34</td>
+                <td>España</td>
+                <td>Diseñadora</td>
+            </tr>
+            <tr>
+                <td>Carlos López</td>
+                <td>22</td>
+                <td>Argentina</td>
+                <td>Desarrollador</td>
+            </tr>
+            <tr>
+                <td>Lucía Fernández</td>
+                <td>30</td>
+                <td>Chile</td>
+                <td>Abogada</td>
+            </tr>
+            <tr>
+                <td>Ana Gómez</td>
+                <td>25</td>
+                <td>Colombia</td>
+                <td>Doctora</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const table = document.getElementById('dataTable');
+        const rows = table.getElementsByTagName('tr');
+
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerHTML.toLowerCase().includes(filter)) {
+                        found = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = found ? '' : 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
+
